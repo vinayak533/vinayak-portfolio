@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Portfolio of Vinayak K V - Data Science & Machine Learning Enthusiast. Exploring AI, NLP, and building end-to-end ML solutions.">
+    <meta name="keywords"
+        content="Vinayak K V, Data Science, Machine Learning, AI, NLP, Portfolio, Python, FastAPI, React">
+    <meta name="author" content="Vinayak K V">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vinayak533.github.io/">
+    <meta property="og:title" content="Vinayak K V - Data Science & ML Enthusiast">
+    <meta property="og:description"
+        content="Building end-to-end ML and AI solutions using Python, FastAPI, Streamlit, and LLMs.">
+    <meta property="og:image" content="assets/images/profile-pic.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://vinayak533.github.io/">
+    <meta property="twitter:title" content="Vinayak K V - Data Science & ML Enthusiast">
+    <meta property="twitter:description"
+        content="Building end-to-end ML and AI solutions using Python, FastAPI, Streamlit, and LLMs.">
+    <meta property="twitter:image" content="assets/images/profile-pic.jpg">
+
+    <title>Vinayak K V | Data Science Portfolio</title>
+
+    <!-- Fonts: Outfit (Modern, Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons: FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">VINAYAK K V<span></span></a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#experience">Experience</a>
+                <a href="#education">Education</a>
+                <a href="#certifications">Certifications</a>
+                <a href="#contact" class="btn btn-sm btn-primary">Contact</a>
+            </div>
+            <button class="mobile-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <canvas id="data-pipeline-canvas"></canvas>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <p class="greeting">Hello, I'm</p>
+                <h1 class="name">VINAYAK K V</h1>
+                <h2 class="role">Data Science & Machine Learning Engineer </h2>
+                <p class="tagline">Building production-ready ML and AI solutions — from data analysis to deployment —
+                    using Python, FastAPI, Streamlit, Docker, and LLMs.</p>
+                <div class="hero-btns">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="https://github.com/vinayak533" target="_blank" class="btn btn-outline"><i
+                            class="fab fa-github"></i> GitHub</a>
+                    <a href="assets/VINAYAK_JOB_CV.pdf" download="VINAYAK_JOB_CV.pdf" class="btn btn-outline"><i
+                            class="fas fa-download"></i> CV</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-wrapper">
+                    <img src="assets/images/profile-pic.jpg" alt="Vinayak K V - Data Scientist" loading="eager">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- About Section -->
+        <section id="about" class="section about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <div class="about-text-glow-box">
+                        <p>I am a <strong>Data Science and Machine Learning graduate</strong> with a Bachelor of
+                            Computer Applications (BCA) from Mahatma Gandhi University. I developed a strong interest in
+                            data science during my studies and built practical skills in Python, machine learning, and
+                            data visualization through hands-on projects and online learning.</p>
+
+                        <p>I completed a <strong>Data Science internship at Cognifyz Technologies</strong>, where I
+                            worked on real-world datasets, performed exploratory data analysis, and built machine
+                            learning models to solve practical problems. This experience strengthened my analytical and
+                            problem-solving skills.</p>
+
+                        <p>I specialize in building <strong>end-to-end machine learning solutions</strong>, from data
+                            preprocessing and model development to deployment using Streamlit, FastAPI, Docker, and
+                            cloud platforms. Currently, I am exploring <strong>Large Language Models (LLMs) and
+                                Generative AI</strong>, with a focus on developing practical, real-world AI
+                            applications.</p>
+                    </div>
+
+                    <!-- New: About Highlights -->
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <h4>30+</h4>
+                            <p>Projects Built</p>
+                        </div>
+                        <div class="highlight-item">
+                            <h4>5+</h4>
+                            <p>Certifications</p>
+                        </div>
+                        <div class="highlight-item">
+                            <h4>1</h4>
+                            <p>Internship</p>
+                        </div>
+                        <div class="highlight-item">
+                            <h4>300+</h4>
+                            <p>GitHub Commits</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section skills">
+            <div class="container">
+                <h2 class="section-title">Technical Skills</h2>
+                <!-- Minimal Cards, 3 top, 2 bottom centered -->
+                <div class="skills-grid-minimal">
+                    <!-- Programming & Data -->
+                    <div class="skill-card-minimal">
+                        <div class="skill-icon-minimal"><i class="fab fa-python"></i></div>
+                        <h3>Programming & Data</h3>
+                        <p>Python · SQL · Pandas · NumPy · Data Cleaning · EDA · Feature Engineering</p>
+                    </div>
+
+                    <!-- Machine Learning -->
+                    <div class="skill-card-minimal">
+                        <div class="skill-icon-minimal"><i class="fas fa-cogs"></i></div>
+                        <h3>Machine Learning</h3>
+                        <p>Regression · Classification · Clustering · SVM · Random Forest · Naive Bayes · Model
+                            Evaluation</p>
+                    </div>
+
+                    <!-- Deep Learning & NLP -->
+                    <div class="skill-card-minimal">
+                        <div class="skill-icon-minimal"><i class="fas fa-brain"></i></div>
+                        <h3>Deep Learning & NLP</h3>
+                        <p>Neural Networks · CNN · TensorFlow · PyTorch · NLP</p>
+                    </div>
+
+                    <!-- LLMs & Generative AI -->
+                    <div class="skill-card-minimal">
+                        <div class="skill-icon-minimal"><i class="fas fa-robot"></i></div>
+                        <h3>LLMs & Generative AI</h3>
+                        <p>LLMs · Prompt Engineering · RAG · Transformers</p>
+                    </div>
+
+                    <!-- Deployment & Tools -->
+                    <div class="skill-card-minimal">
+                        <div class="skill-icon-minimal"><i class="fas fa-server"></i></div>
+                        <h3>Deployment & Tools</h3>
+                        <p>Streamlit · FastAPI · Docker · CI/CD · MLflow · GitHub · Render · Hugging Face Spaces ·
+                            Jupyter · Anaconda · Excel</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section projects">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="projects-grid">
+                    <!-- 1. DataPrep Hub -->
+                    <div class="project-card"
+                        onclick="window.open('https://data-prep-tutor-53388-33977.lovable.app', '_blank')">
+                        <div class="project-image">
+                            <div class="moving-visuals-overlay"></div>
+                            <img src="assets/images/project_dataprep_hub.png" alt="DataPrep Hub" loading="lazy">
+                        </div>
+                        <div class="project-content">
+                            <h3>DataPrep Hub</h3>
+                            <p>AI-powered learning platform with structured CS content and assessment tools.</p>
+                            <div class="tech-stack"><span>AI</span><span>EdTech</span><span>Platform</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 2. InsightGenie -->
+                    <div class="project-card"
+                        onclick="window.open('https://github.com/vinayak533/InsightGenie-Data-Analyzer', '_blank')">
+                        <div class="project-image">
+                            <div class="moving-visuals-overlay"></div>
+                            <img src="assets/images/projects/insight-genie.png" alt="InsightGenie" loading="lazy">
+                        </div>
+                        <div class="project-content">
+                            <h3>InsightGenie</h3>
+                            <p>AI-driven data analysis tool transforming raw CSVs into insights & visualizations.</p>
+                            <div class="tech-stack"><span>FastAPI</span><span>React</span><span>AI/ML</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Spam Mail Detection -->
+                    <div class="project-card"
+                        onclick="window.open('https://github.com/vinayak533/spam-mail-detection-ml-app', '_blank')">
+                        <div class="project-image">
+                            <div class="moving-visuals-overlay"></div>
+                            <img src="assets/images/projects/spam-filter.png" alt="Spam Detection" loading="lazy">
+                        </div>
+                        <div class="project-content">
+                            <h3>Spam Mail Detection</h3>
+                            <p>ML web app classifying emails as spam using Naive Bayes & NLP techniques.</p>
+                            <div class="tech-stack"><span>Streamlit</span><span>NLP</span><span>Sklearn</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Big Mart Sales Prediction -->
+                    <div class="project-card"
+                        onclick="window.open('https://github.com/vinayak533/big-mart-sales-prediction', '_blank')">
+                        <div class="project-image">
+                            <!-- CSS Animated Dashboard for Sales -->
+                            <div class="project-thumb-gradient thumb-sales-animated">
+                                <div class="sales-chart-container">
+                                    <div class="bar bar-1"></div>
+                                    <div class="bar bar-2"></div>
+                                    <div class="bar bar-3"></div>
+                                    <div class="bar bar-4"></div>
+                                    <div class="bar bar-5"></div>
+                                    <div class="trend-line"></div>
+                                </div>
+                                <div class="floating-badge">Sales Prediction</div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3>Big Mart Sales Prediction</h3>
+                            <p>Forecasting product sales across outlets using advanced regression models.</p>
+                            <div class="tech-stack"><span>XGBoost</span><span>Regression</span><span>Pandas</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Face Mask Detection -->
+                    <div class="project-card"
+                        onclick="window.open('https://github.com/vinayak533/Face-Mask-Detection-CNN', '_blank')">
+                        <div class="project-image">
+                            <div class="moving-visuals-overlay"></div>
+                            <img src="assets/images/projects/face-mask.png" alt="Face Mask Detection" loading="lazy">
+                        </div>
+                        <div class="project-content">
+                            <h3>Face Mask Detection</h3>
+                            <p>Real-time CNN vision model detecting face masks with high accuracy.</p>
+                            <div class="tech-stack"><span>TensorFlow</span><span>OpenCV</span><span>CNN</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Rainfall Prediction -->
+                    <div class="project-card"
+                        onclick="window.open('https://github.com/vinayak533/Rainfall-Prediction-ML', '_blank')">
+                        <div class="project-image">
+                            <div class="moving-visuals-overlay"></div>
+                            <img src="assets/images/projects/rainfall.png" alt="Rainfall Prediction" loading="lazy">
+                        </div>
+                        <div class="project-content">
+                            <h3>Rainfall Prediction</h3>
+                            <p>ML model forecasting rainfall patterns based on historical weather data.</p>
+                            <div class="tech-stack"><span>Sklearn</span><span>Matplotlib</span><span>Python</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section (Compact) -->
+        <section id="experience" class="section experience">
+            <div class="container">
+                <h2 class="section-title">Experience</h2>
+                <div class="compact-section">
+                    <div class="compact-card" style="align-items: flex-start; flex-direction: column; gap: 1rem;">
+                        <div
+                            style="width: 100%; display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div class="compact-info">
+                                <h3>Data Science Intern</h3>
+                                <h4>Cognifyz Technologies</h4>
+                            </div>
+                            <div class="compact-date">Aug 2025 – Sep 2025</div>
+                        </div>
+
+                        <!-- Description List -->
+                        <ul
+                            style="color: var(--text-muted); font-size: 0.9rem; margin-left: 1.2rem; line-height: 1.6; list-style-type: disc;">
+                            <li>Prepared and cleaned datasets, performing EDA to extract actionable insights.</li>
+                            <li>Built and evaluated machine learning models using Python and Scikit-learn.</li>
+                            <li>Managed tasks with JIRA and presented findings to the team.</li>
+                        </ul>
+
+                        <!-- Certificate Button -->
+                        <a href="assets/images/certs/intership-certificate.png" target="_blank"
+                            class="experience-cert-link">
+                            <i class="fas fa-certificate"></i> View Internship Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section (Compact) -->
+        <section id="education" class="section education">
+            <div class="container">
+                <h2 class="section-title">Education</h2>
+                <div class="education-clean-list">
+                    <!-- 1. BCA -->
+                    <div class="edu-item">
+                        <div class="edu-degree">Bachelor of Computer Applications (BCA)</div>
+                        <div class="edu-institution">MG University</div>
+                        <div class="edu-date">2025</div>
+                    </div>
+
+                    <!-- 2. XII -->
+                    <div class="edu-item">
+                        <div class="edu-degree">Higher Secondary (XII)</div>
+                        <div class="edu-institution">St. Joseph's Higher Secondary School</div>
+                        <div class="edu-date">
+                            2022
+                            <span class="edu-score">82%</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. X -->
+                    <div class="edu-item">
+                        <div class="edu-degree">Secondary School (X)</div>
+                        <div class="edu-institution">St. Antony's High School</div>
+                        <div class="edu-date">
+                            2020
+                            <span class="edu-score">88%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="section certifications">
+            <div class="container">
+                <h2 class="section-title">Certifications</h2>
+                <div class="certs-grid">
+                    <div class="cert-card">
+                        <img src="assets/images/certs/ibm-sql.png" alt="IBM SQL" loading="lazy">
+                        <div class="cert-info">
+                            <h3>SQL and Relational Databases 101</h3>
+                            <p>IBM Cognitive Class</p>
+                        </div>
+                    </div>
+                    <!-- Replaced Data Analysis with Deep Learning (Updated Image) -->
+                    <div class="cert-card">
+                        <img src="assets/images/certs/ibm-deep-learning-update.png" alt="IBM Deep Learning"
+                            loading="lazy">
+                        <div class="cert-info">
+                            <h3>Deep Learning using TensorFlow</h3>
+                            <p>IBM Cognitive Class</p>
+                        </div>
+                    </div>
+                    <div class="cert-card">
+                        <img src="assets/images/certs/kaggle-python.png" alt="Kaggle Python Coder" loading="lazy">
+                        <div class="cert-info">
+                            <h3>Python Coder</h3>
+                            <p>Kaggle (2025)</p>
+                        </div>
+                    </div>
+                    <div class="cert-card">
+                        <img src="assets/images/certs/ibm-ml-python.png" alt="IBM Machine Learning" loading="lazy">
+                        <div class="cert-info">
+                            <h3>Machine Learning with Python</h3>
+                            <p>IBM Cognitive Class</p>
+                        </div>
+                    </div>
+                    <!-- Replaced/Removed others to fit spacing if needed, but keeping remaining as is -->
+                    <div class="cert-card">
+                        <img src="assets/images/certs/tata-data-viz.png" alt="Tata Data Visualization" loading="lazy">
+                        <div class="cert-info">
+                            <h3>Data Visualization</h3>
+                            <p>Tata Forage</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container footer-container">
+            <div class="footer-cta">
+                <h2>Let's Connect</h2>
+                <p>Open for opportunities in Data Science & AI.</p>
+
+                <!-- Unique Contact Bar -->
+                <div class="contact-glass-bar">
+                    <a href="mailto:vinayakkv2004@gmail.com" class="contact-item">
+                        <i class="fas fa-envelope"></i> vinayakkv2004@gmail.com
+                    </a>
+                    <a href="https://linkedin.com/in/vinayak-k-v-b1645a359" target="_blank" class="contact-item">
+                        <i class="fab fa-linkedin"></i> vinayak-k-v-b1645a359
+                    </a>
+                    <a href="https://github.com/vinayak533/" target="_blank" class="contact-item">
+                        <i class="fab fa-github"></i> vinayak533
+                    </a>
+                    <a href="tel:+919037252890" class="contact-item">
+                        <i class="fas fa-phone"></i> +91 9037252890
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Built by VINAYAK</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <div class="theme-options">
+            <button class="theme-toggle-btn" data-theme="default" title="Deep Navy">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="theme-toggle-btn" data-theme="light" title="Light Mode">
+                <i class="fas fa-sun"></i>
+            </button>
+            <button class="theme-toggle-btn" data-theme="monochrome" title="Monochrome">
+                <i class="fas fa-adjust"></i>
+            </button>
+        </div>
+        <button class="theme-toggle-btn" id="main-theme-toggle">
+            <i class="fas fa-palette"></i>
+        </button>
+    </div>
+
+    <script src="assets/js/script.js" defer></script>
+</body>
+
+</html>
