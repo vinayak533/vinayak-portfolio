@@ -1,0 +1,285 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   PROJECTS SECTION: HOLOGRAPHIC 3D FLIP CARDS
+   ────────────────────────────────────────────────────────────────────────── */
+
+.projects-section {
+    padding: 100px 0;
+    position: relative;
+    z-index: 5;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 50px;
+    perspective: 1500px;
+    /* Essential for 3D depth */
+}
+
+/* Base Card Container */
+.project-card {
+    position: relative;
+    height: 420px;
+    background: transparent;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.tilt-wrapper {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.2s cubic-bezier(0.03, 0.98, 0.52, 0.99);
+}
+
+/* Inner card that actually flips */
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+/* Hover effect for desktop */
+@media (hover: hover) {
+    .project-card:hover .card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .project-card:hover::before {
+        opacity: 1;
+        animation: light-streak 2s linear infinite;
+    }
+}
+
+/* Class-based toggle for mobile/touch */
+.project-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.project-card.flipped::before {
+    opacity: 1;
+    animation: light-streak 2s linear infinite;
+}
+
+/* Light Streak Border Effect (Active on hover/flip) */
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    background-size: 200% 100%;
+    border-radius: 22px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.project-card:hover::before {
+    opacity: 1;
+    animation: light-streak 2s linear infinite;
+}
+
+@keyframes light-streak {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Front & Back Faces */
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 242, 234, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Front Side */
+.card-front {
+    background: rgba(10, 15, 30, 0.8);
+    display: flex;
+    flex-direction: column;
+}
+
+.project-visual {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+}
+
+.project-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+    transition: transform 0.6s ease;
+}
+
+.hologram-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 242, 234, 0.05) 3px,
+            transparent 3px);
+    pointer-events: none;
+}
+
+.project-title-mini {
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(15, 20, 35, 0.9);
+    border-top: 1px solid rgba(0, 242, 234, 0.1);
+}
+
+/* Back Side */
+.card-back {
+    background: rgba(5, 10, 20, 0.95);
+    backdrop-filter: blur(20px);
+    transform: rotateY(180deg);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid var(--neon-cyan);
+    box-shadow: inset 0 0 50px rgba(0, 242, 234, 0.1);
+}
+
+.card-back-content {
+    text-align: left;
+}
+
+.card-back h3 {
+    font-size: 1.5rem;
+    color: var(--neon-cyan);
+    margin-bottom: 0.5rem;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 1px;
+}
+
+.project-desc-mini {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.project-impact {
+    font-size: 0.8rem;
+    color: #fff;
+    background: rgba(0, 242, 234, 0.1);
+    padding: 5px 12px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid var(--neon-cyan);
+}
+
+.project-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 2rem;
+}
+
+.project-pill {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: var(--neon-cyan);
+    font-family: 'Courier New', monospace;
+}
+
+.project-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.project-btn {
+    flex: 1;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.project-btn:hover {
+    background: var(--neon-cyan);
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 242, 234, 0.4);
+}
+
+.project-btn.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.project-featured {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--neon-cyan);
+    color: #000;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    z-index: 5;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px rgba(0, 242, 234, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-card {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+}

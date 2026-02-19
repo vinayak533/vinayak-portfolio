@@ -1,0 +1,79 @@
+/* ================================================================
+   SKILLS — NEURAL CONSTELLATION
+   ================================================================ */
+.skills-constellation {
+    position: relative;
+    width: 100%;
+    min-height: 800px;
+    /* Tall enough for the graph */
+    background: #050a14;
+    /* Match body bg */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* Title at top */
+    padding-top: 4rem;
+}
+
+#skills-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.skills-overlay {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    pointer-events: none;
+    /* Let clicks pass to canvas */
+    width: 100%;
+}
+
+.skills-subtitle {
+    font-size: 1.1rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: -2rem;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+    text-shadow: 0 0 10px rgba(0, 242, 234, 0.3);
+}
+
+/* Tooltip for Skills Nodes */
+.skill-tooltip {
+    position: absolute;
+    background: rgba(15, 22, 35, 0.9);
+    padding: 0.8rem 1.2rem;
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.9rem;
+    pointer-events: none;
+    z-index: 100;
+    white-space: nowrap;
+    box-shadow: 0 0 15px rgba(0, 242, 234, 0.3);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    transform: translate(-50%, -150%);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .skills-constellation {
+        min-height: 500px;
+        /* Reduced from 800px */
+        padding-top: 2rem;
+    }
+
+    .skills-subtitle {
+        font-size: 0.9rem;
+        margin-top: -1rem;
+    }
+}
