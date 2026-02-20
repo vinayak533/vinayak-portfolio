@@ -134,10 +134,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (mobileToggle) {
         mobileToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const isActive = navLinks.classList.toggle('active');
+            document.body.classList.toggle('body-no-scroll', isActive);
+
             // Toggle icon between bars and times
             const icon = mobileToggle.querySelector('i');
-            if (navLinks.classList.contains('active')) {
+            if (isActive) {
                 icon.classList.remove('fa-bars');
                 icon.classList.add('fa-times');
             } else {
@@ -152,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', () => {
             if (navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
+                document.body.classList.remove('body-no-scroll');
                 const icon = mobileToggle.querySelector('i');
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');

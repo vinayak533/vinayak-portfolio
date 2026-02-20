@@ -62,8 +62,8 @@ class EducationNodeMap {
 
         this.container.addEventListener('mousemove', (e) => this.handleMouseMove(e));
         this.container.addEventListener('mouseleave', () => this.handleMouseLeave());
-        this.container.addEventListener('touchstart', (e) => this.handleTouch(e), { passive: true });
-        this.container.addEventListener('touchmove', (e) => this.handleTouch(e), { passive: true });
+        this.container.addEventListener('touchstart', (e) => this.handleTouch(e), { passive: false });
+        this.container.addEventListener('touchmove', (e) => this.handleTouch(e), { passive: false });
 
         this.animate();
     }
@@ -71,9 +71,8 @@ class EducationNodeMap {
     resize() {
         this.width = this.container.offsetWidth;
         this.height = this.container.offsetHeight;
-        this.canvas.width = this.width * window.devicePixelRatio;
-        this.canvas.height = this.height * window.devicePixelRatio;
-        this.ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        this.canvas.width = this.width;
+        this.canvas.height = this.height;
     }
 
     handleMouseMove(e) {
@@ -81,48 +80,7 @@ class EducationNodeMap {
         this.mouse.x = e.clientX - rect.left;
         this.mouse.y = e.clientY - rect.top;
 
-        // Check for hover
-        let found = null;
-        this.milestones.forEach(node => {
-            const nx = node.xPercent * this.width;
-            const ny = node.yPercent * this.height;
-            const dist = Math.sqrt((this.mouse.x - nx) ** 2 + (this.mouse.y - ny) ** 2);
-            if (dist < 30 * node.importance) {
-                found = node;
-            }
-        });
-
-        if (found !== this.hoveredNode) {
-            this.hoveredNode = found;
-            if (found) {
-                this.updateHud(found);
-            } else {
-                this.hud.classList.remove('visible');
-            }
-        }
-
-        // Move HUD
-        if (this.hoveredNode) {
-            const hudWidth = this.hud.offsetWidth;
-            const hudHeight = this.hud.offsetHeight;
-            let left = this.mouse.x + 20;
-            let top = this.mouse.y + 20;
-
-            if (left + hudWidth > this.width) left = this.mouse.x - hudWidth - 20;
-            if (top + hudHeight > this.height) top = this.mouse.y - hudHeight - 20;
-
-            this.hud.style.left = `${left}px`;
-            this.hud.style.top = `${top}px`;
-        }
-    }
-
-    updateHud(node) {
-        document.getElementById('hud-id').innerText = node.id;
-        document.getElementById('hud-degree').innerText = node.degree;
-        document.getElementById('hud-institution').innerText = node.institution;
-        document.getElementById('hud-year').innerText = node.year;
-        document.getElementById('hud-score').innerText = node.score;
-        this.hud.classList.add('visible');
+        this.checkHover();
     }
 
     handleMouseLeave() {
@@ -134,52 +92,68 @@ class EducationNodeMap {
 
     handleTouch(e) {
         if (e.touches.length > 0) {
+            e.preventDefault(); // Prevent scrolling while interacting with map
             const rect = this.canvas.getBoundingClientRect();
-            // Mock event-like object or reuse logic
             const touch = e.touches[0];
-            // Call handleMouseMove logic with mocked event, or replicate logic
-            // Replicating/Adapting logic to avoid full refactor
-            const clientX = touch.clientX;
-            const clientY = touch.clientY;
+            this.mouse.x = touch.clientX - rect.left;
+            this.mouse.y = touch.clientY - rect.top;
 
-            this.mouse.x = clientX - rect.left;
-            this.mouse.y = clientY - rect.top;
+            this.checkHover();
+        }
+    }
 
-            // Trigger check (copy of check logic from handleMouseMove)
-            let found = null;
-            this.milestones.forEach(node => {
-                const nx = node.xPercent * this.width;
-                const ny = node.yPercent * this.height;
-                const dist = Math.sqrt((this.mouse.x - nx) ** 2 + (this.mouse.y - ny) ** 2);
-                if (dist < 40 * node.importance) { // Slightly larger hit area for touch
-                    found = node;
-                }
-            });
+    checkHover() {
+        let found = null;
+        const threshold = window.innerWidth < 768 ? 50 : 35;
 
-            if (found !== this.hoveredNode) {
-                this.hoveredNode = found;
-                if (found) {
-                    this.updateHud(found);
-                } else {
-                    this.hud.classList.remove('visible');
-                }
+        this.milestones.forEach(node => {
+            const nx = node.xPercent * this.width;
+            const ny = node.yPercent * this.height;
+            const dist = Math.sqrt((this.mouse.x - nx) ** 2 + (this.mouse.y - ny) ** 2);
+            if (dist < threshold * node.importance) {
+                found = node;
             }
+        });
 
-            // Move HUD
-            if (this.hoveredNode) {
-                // ... redundant but okay for now
-                const hudWidth = this.hud.offsetWidth;
-                const hudHeight = this.hud.offsetHeight;
-                let left = this.mouse.x + 20;
-                let top = this.mouse.y + 20;
-
-                if (left + hudWidth > this.width) left = this.mouse.x - hudWidth - 20;
-                if (top + hudHeight > this.height) top = this.mouse.y - hudHeight - 20;
-
-                this.hud.style.left = `${left}px`;
-                this.hud.style.top = `${top}px`;
+        if (found !== this.hoveredNode) {
+            this.hoveredNode = found;
+            if (found) {
+                this.updateHud(found);
+                this.hud.classList.add('visible');
+            } else {
+                this.hud.classList.remove('visible');
             }
         }
+
+        if (this.hoveredNode) {
+            this.positionHud();
+        }
+    }
+
+    updateHud(node) {
+        document.getElementById('hud-id').textContent = `#${node.id.split('_')[1]}`;
+        document.getElementById('hud-degree').textContent = node.degree;
+        document.getElementById('hud-institution').textContent = node.institution;
+        document.getElementById('hud-year').textContent = node.year;
+        document.getElementById('hud-score').textContent = node.score;
+    }
+
+    positionHud() {
+        const hudWidth = this.hud.offsetWidth;
+        const hudHeight = this.hud.offsetHeight;
+        let left = this.mouse.x + 20;
+        let top = this.mouse.y + 20;
+
+        // Keep inside bounds
+        if (left + hudWidth > this.width) left = this.mouse.x - hudWidth - 20;
+        if (top + hudHeight > this.height) top = this.mouse.y - hudHeight - 20;
+
+        // Ensure not off-screen on extreme left
+        if (left < 10) left = 10;
+        if (top < 10) top = 10;
+
+        this.hud.style.left = `${left}px`;
+        this.hud.style.top = `${top}px`;
     }
 
     drawConnections() {
