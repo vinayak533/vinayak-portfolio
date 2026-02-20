@@ -278,19 +278,25 @@
         z-index: 10 !important;
         position: relative !important;
         overflow: visible !important;
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        min-height: 500px;
     }
 
     .projects-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
         display: grid !important;
         opacity: 1 !important;
         visibility: visible !important;
         z-index: 11 !important;
+        gap: 30px !important;
     }
 
     .project-card {
-        max-width: 350px;
-        margin: 0 auto;
+        max-width: 350px !important;
+        height: 420px !important;
+        margin: 0 auto !important;
         opacity: 1 !important;
         visibility: visible !important;
         display: block !important;

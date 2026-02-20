@@ -113,8 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ================================================================
     // 5. SCROLL REVEAL — Enhanced with stagger delay
     // ================================================================
-    // Basic elements (no stagger)
-    const revealElements = document.querySelectorAll('.section-title, .project-card, .skill-card-minimal, .timeline-item, .cert-card, .compact-card, .edu-node-map-wrapper, .about-text-glow-box, .about-highlights');
+    // Basic elements (no stagger) - EXCLUDED .project-card to avoid mobile visibility issues
+    const revealElements = document.querySelectorAll('.section-title, .skill-card-minimal, .timeline-item, .cert-card, .compact-card, .edu-node-map-wrapper, .about-text-glow-box, .about-highlights');
     revealElements.forEach(el => el.classList.add('reveal-stagger'));
 
     const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -1107,6 +1107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+
+
     // Run after a tiny delay so GSAP + ScrollTrigger are ready
     setTimeout(() => {
         initPipelineTimeline();
@@ -1115,212 +1117,216 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize about animation immediately
     initAboutNeuralAnimation();
 
-});
+    // Force visibility on mobile to avoid any reveal glitches
+    forceMobileElements();
+    window.addEventListener('resize', forceMobileElements);
 
-// ================================================================
-// ABOUT SECTION: NEURAL EXPLOSION ANIMATION
-// ================================================================
-function initAboutNeuralAnimation() {
-    const canvas = document.getElementById('about-neural-canvas');
-    const container = document.getElementById('aboutNeuralContainer'); // Corrected ID
-    if (!canvas || !container) return;
+    // ================================================================
+    // ABOUT SECTION: NEURAL EXPLOSION ANIMATION
+    // ================================================================
+    function initAboutNeuralAnimation() {
+        const canvas = document.getElementById('about-neural-canvas');
+        const container = document.getElementById('aboutNeuralContainer'); // Corrected ID
+        if (!canvas || !container) return;
 
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    let particles = [];
-    let state = 'fill'; // fill | explode | refill
-    let timer = 0;
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        let state = 'fill'; // fill | explode | refill
+        let timer = 0;
 
-    const PARTICLE_COUNT = 150;
-    const BOX_SIZE = 300;
-    const NEON_CYAN = '#00f2ea';
+        const PARTICLE_COUNT = 150;
+        const BOX_SIZE = 300;
+        const NEON_CYAN = '#00f2ea';
 
-    class Particle {
-        constructor() {
-            this.reset();
-        }
-
-        reset() {
-            // Start inside the box
-            this.x = (Math.random() - 0.5) * (BOX_SIZE - 20);
-            this.y = (Math.random() - 0.5) * (BOX_SIZE - 20);
-            this.vx = (Math.random() - 0.5) * 1.5;
-            this.vy = (Math.random() - 0.5) * 1.5;
-            this.size = Math.random() * 2 + 1;
-            this.alpha = Math.random() * 0.5 + 0.5;
-        }
-
-        update() {
-            if (state === 'fill') {
-                // Gentle movement within box bounds
-                this.x += this.vx;
-                this.y += this.vy;
-                if (Math.abs(this.x) > BOX_SIZE / 2 - 10) this.vx *= -1;
-                if (Math.abs(this.y) > BOX_SIZE / 2 - 10) this.vy *= -1;
+        class Particle {
+            constructor() {
+                this.reset();
             }
-            else if (state === 'explode') {
-                // Fly outwards drastically
-                this.x += this.vx * 18;
-                this.y += this.vy * 18;
-                this.alpha -= 0.015;
+
+            reset() {
+                // Start inside the box
+                this.x = (Math.random() - 0.5) * (BOX_SIZE - 20);
+                this.y = (Math.random() - 0.5) * (BOX_SIZE - 20);
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.size = Math.random() * 2 + 1;
+                this.alpha = Math.random() * 0.5 + 0.5;
             }
-            else if (state === 'refill') {
-                // Magnetic pull back to center
-                this.x -= this.x * 0.12;
-                this.y -= this.y * 0.12;
-                this.alpha = Math.min(1, this.alpha + 0.08);
-                if (Math.abs(this.x) < 5 && Math.abs(this.y) < 5) {
-                    this.reset();
+
+            update() {
+                if (state === 'fill') {
+                    // Gentle movement within box bounds
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (Math.abs(this.x) > BOX_SIZE / 2 - 10) this.vx *= -1;
+                    if (Math.abs(this.y) > BOX_SIZE / 2 - 10) this.vy *= -1;
+                }
+                else if (state === 'explode') {
+                    // Fly outwards drastically
+                    this.x += this.vx * 18;
+                    this.y += this.vy * 18;
+                    this.alpha -= 0.015;
+                }
+                else if (state === 'refill') {
+                    // Magnetic pull back to center
+                    this.x -= this.x * 0.12;
+                    this.y -= this.y * 0.12;
+                    this.alpha = Math.min(1, this.alpha + 0.08);
+                    if (Math.abs(this.x) < 5 && Math.abs(this.y) < 5) {
+                        this.reset();
+                    }
                 }
             }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(width / 2 + this.x, height / 2 + this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 242, 234, ${this.alpha})`;
+                ctx.fill();
+
+                // Add glow
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = NEON_CYAN;
+            }
         }
 
-        draw() {
-            ctx.beginPath();
-            ctx.arc(width / 2 + this.x, height / 2 + this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(0, 242, 234, ${this.alpha})`;
-            ctx.fill();
+        function resize() {
+            width = container.offsetWidth * 2;
+            height = container.offsetHeight * 2;
+            canvas.width = width;
+            canvas.height = height;
+        }
 
-            // Add glow
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = NEON_CYAN;
+        function init() {
+            resize();
+            particles = [];
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, width, height);
+
+            timer++;
+
+            // Extreme Cycle states: Fill (10 frames) -> Explode (40 frames) -> Refill (30 frames)
+            if (timer < 10) state = 'fill';
+            else if (timer < 50) state = 'explode';
+            else if (timer < 80) state = 'refill';
+            else {
+                timer = 0;
+                state = 'fill';
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(loop);
+        }
+
+        window.addEventListener('resize', resize);
+        init();
+        loop();
+    }
+
+    function forceMobileElements() {
+        if (window.innerWidth < 768) {
+            document.querySelectorAll('.project-card, .projects-grid, .projects-section').forEach(el => {
+                el.classList.add('active');
+                el.style.setProperty('opacity', '1', 'important');
+                el.style.setProperty('visibility', 'visible', 'important');
+                el.style.setProperty('display', 'block', 'important');
+                el.style.transform = 'none';
+            });
+            // Grid needs special display
+            const grid = document.querySelector('.projects-grid');
+            if (grid) grid.style.setProperty('display', 'grid', 'important');
         }
     }
 
-    function resize() {
-        width = container.offsetWidth * 2;
-        height = container.offsetHeight * 2;
-        canvas.width = width;
-        canvas.height = height;
-    }
+    function setTheme(theme) {
+        // Remove existing theme attributes first
+        document.body.removeAttribute('data-theme');
 
-    function init() {
-        resize();
-        particles = [];
-        for (let i = 0; i < PARTICLE_COUNT; i++) {
-            particles.push(new Particle());
-        }
-    }
-
-    function loop() {
-        ctx.clearRect(0, 0, width, height);
-
-        timer++;
-
-        // Extreme Cycle states: Fill (10 frames) -> Explode (40 frames) -> Refill (30 frames)
-        if (timer < 10) state = 'fill';
-        else if (timer < 50) state = 'explode';
-        else if (timer < 80) state = 'refill';
-        else {
-            timer = 0;
-            state = 'fill';
+        if (theme !== 'default') {
+            document.body.setAttribute('data-theme', theme);
         }
 
-        particles.forEach(p => {
-            p.update();
-            p.draw();
+        // Save to local storage
+        localStorage.setItem('portfolio-theme', theme);
+
+        // Update active state on buttons
+        themeBtns.forEach(btn => {
+            if (btn.getAttribute('data-theme') === theme) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
         });
 
-        requestAnimationFrame(loop);
+        // Trigger particles re-init to match new colors if needed
+        // (Optional: reload particles to pick up new CSS variable colors if implemented dynamically)
+        // For now, simpler to just reload page or re-run init if complex
+        // But canvas is drawing colors from JS, so we might need to update that.
+        // Let's reload page for simplicity if user accepts, OR just update JS vars.
+        // Updating JS vars dynamically:
+        updateCanvasColors(theme);
     }
 
-    window.addEventListener('resize', resize);
-    init();
-    loop();
-}
+    function updateCanvasColors(theme) {
+        // Map themes to JS colors for canvas
+        const canvas = document.getElementById('data-pipeline-canvas');
+        if (!canvas) return;
 
-// Function to immediately force visibility for critical elements on mobile
-function forceMobileElements() {
-    if (window.innerWidth < 768) {
-        document.querySelectorAll('.project-card, .projects-grid, .section-title').forEach(el => {
-            el.classList.add('active');
-            el.style.opacity = '1';
-            el.style.visibility = 'visible';
-            el.style.transform = 'none';
+        // Default Navy
+        let nodeColor = '#00D1FF'; // Cyan
+        let particleColor = '#64ffda';
+
+        if (theme === 'light') {
+            nodeColor = '#0077B6'; // Cobalt
+            particleColor = '#34495e'; // Navy
+        } else if (theme === 'monochrome') {
+            nodeColor = '#FF6B6B'; // Coral
+            particleColor = '#95a5a6'; // Gray
+        }
+
+        // We'd need to expose this to the canvas class instance or re-init.
+        // For a quick fix, let's just reload the valid colors into global scope or re-run init.
+        // Actually, let's just refresh the window for cleanest switch since canvas state is complex.
+        // But that's jarring. Let's just update styles.
+    }
+
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    if (savedTheme) {
+        setTheme(savedTheme);
+    }
+
+    // --- Active Navigation on Scroll ---
+    const sections = document.querySelectorAll('section, footer');
+    const navLinksItems = document.querySelectorAll('.nav-links a:not(.btn)');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        const scrollPosition = window.scrollY + 100; // Offset for fixed header
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
+            }
         });
-    }
-}
-forceMobileElements();
-window.addEventListener('resize', forceMobileElements);
 
-function setTheme(theme) {
-    // Remove existing theme attributes first
-    document.body.removeAttribute('data-theme');
-
-    if (theme !== 'default') {
-        document.body.setAttribute('data-theme', theme);
-    }
-
-    // Save to local storage
-    localStorage.setItem('portfolio-theme', theme);
-
-    // Update active state on buttons
-    themeBtns.forEach(btn => {
-        if (btn.getAttribute('data-theme') === theme) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
+        navLinksItems.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current) && current !== '') {
+                link.classList.add('active');
+            }
+        });
     });
-
-    // Trigger particles re-init to match new colors if needed
-    // (Optional: reload particles to pick up new CSS variable colors if implemented dynamically)
-    // For now, simpler to just reload page or re-run init if complex
-    // But canvas is drawing colors from JS, so we might need to update that.
-    // Let's reload page for simplicity if user accepts, OR just update JS vars.
-    // Updating JS vars dynamically:
-    updateCanvasColors(theme);
-}
-
-function updateCanvasColors(theme) {
-    // Map themes to JS colors for canvas
-    const canvas = document.getElementById('data-pipeline-canvas');
-    if (!canvas) return;
-
-    // Default Navy
-    let nodeColor = '#00D1FF'; // Cyan
-    let particleColor = '#64ffda';
-
-    if (theme === 'light') {
-        nodeColor = '#0077B6'; // Cobalt
-        particleColor = '#34495e'; // Navy
-    } else if (theme === 'monochrome') {
-        nodeColor = '#FF6B6B'; // Coral
-        particleColor = '#95a5a6'; // Gray
-    }
-
-    // We'd need to expose this to the canvas class instance or re-init.
-    // For a quick fix, let's just reload the valid colors into global scope or re-run init.
-    // Actually, let's just refresh the window for cleanest switch since canvas state is complex.
-    // But that's jarring. Let's just update styles.
-}
-
-const savedTheme = localStorage.getItem('portfolio-theme');
-if (savedTheme) {
-    setTheme(savedTheme);
-}
-
-// --- Active Navigation on Scroll ---
-const sections = document.querySelectorAll('section, footer');
-const navLinksItems = document.querySelectorAll('.nav-links a:not(.btn)');
-
-window.addEventListener('scroll', () => {
-    let current = '';
-    const scrollPosition = window.scrollY + 100; // Offset for fixed header
-
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    navLinksItems.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').includes(current) && current !== '') {
-            link.classList.add('active');
-        }
-    });
-});
+}); // END DOMContentLoaded
