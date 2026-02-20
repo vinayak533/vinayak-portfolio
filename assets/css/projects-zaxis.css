@@ -269,19 +269,24 @@
 /* Responsive */
 @media (max-width: 1100px) {
     .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr) !important;
+        perspective: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: grid !important;
     }
 }
 
 @media (max-width: 768px) {
     .projects-section {
-        z-index: 10 !important;
+        z-index: 100 !important;
         position: relative !important;
         overflow: visible !important;
         display: block !important;
         opacity: 1 !important;
         visibility: visible !important;
-        min-height: 500px;
+        min-height: 500px !important;
     }
 
     .projects-grid {
@@ -289,17 +294,35 @@
         display: grid !important;
         opacity: 1 !important;
         visibility: visible !important;
-        z-index: 11 !important;
+        z-index: 101 !important;
         gap: 30px !important;
+        perspective: none !important;
+        transform: none !important;
     }
 
     .project-card {
         max-width: 350px !important;
-        height: 420px !important;
+        height: auto !important;
+        min-height: 400px !important;
         margin: 0 auto !important;
         opacity: 1 !important;
         visibility: visible !important;
         display: block !important;
-        z-index: 12 !important;
+        z-index: 102 !important;
+        transform: none !important;
+        perspective: none !important;
+    }
+
+    .card-inner,
+    .tilt-wrapper {
+        transform: none !important;
+        perspective: none !important;
+        transform-style: flat !important;
+    }
+
+    .card-front {
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 }

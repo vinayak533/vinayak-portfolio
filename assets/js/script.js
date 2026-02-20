@@ -128,9 +128,20 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => revealObserver.observe(el));
 
     // Force visibility on mobile to avoid any reveal glitches
-    if (window.innerWidth < 768) {
-        document.querySelectorAll('.project-card').forEach(card => card.classList.add('active'));
+    function handleMobileForce() {
+        if (window.innerWidth <= 1100) {
+            document.querySelectorAll('.project-card, .projects-grid, .projects-section, .section-title').forEach(el => {
+                el.classList.add('active');
+                el.style.setProperty('opacity', '1', 'important');
+                el.style.setProperty('visibility', 'visible', 'important');
+                el.style.setProperty('display', 'block', 'important');
+            });
+            const grid = document.querySelector('.projects-grid');
+            if (grid) grid.style.setProperty('display', 'grid', 'important');
+        }
     }
+    handleMobileForce();
+    window.addEventListener('resize', handleMobileForce);
 
 
     // Mobile Navigation Toggle
