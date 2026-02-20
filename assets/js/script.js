@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ================================================================
     // Basic elements (no stagger)
     const revealElements = document.querySelectorAll('.section-title, .project-card, .skill-card-minimal, .timeline-item, .cert-card, .compact-card, .edu-node-map-wrapper, .about-text-glow-box, .about-highlights');
-    revealElements.forEach(el => el.classList.add('reveal'));
+    revealElements.forEach(el => el.classList.add('reveal-stagger'));
 
     const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.05 });
     revealElements.forEach(el => revealObserver.observe(el));
 
 
@@ -1105,8 +1105,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Run after a tiny delay so GSAP + ScrollTrigger are ready
     setTimeout(() => {
         initPipelineTimeline();
-        initAboutNeuralAnimation(); // New Neural Explosion
     }, 100);
+
+    // Initialize about animation immediately
+    initAboutNeuralAnimation();
 
 });
 
@@ -1115,7 +1117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ================================================================
 function initAboutNeuralAnimation() {
     const canvas = document.getElementById('about-neural-canvas');
-    const container = document.getElementById('aboutNeuralContainer');
+    const container = document.getElementById('about-visual-canvas-container'); // Corrected ID
     if (!canvas || !container) return;
 
     const ctx = canvas.getContext('2d');
@@ -1137,8 +1139,8 @@ function initAboutNeuralAnimation() {
             // Start inside the box
             this.x = (Math.random() - 0.5) * (BOX_SIZE - 20);
             this.y = (Math.random() - 0.5) * (BOX_SIZE - 20);
-            this.vx = (Math.random() - 0.5) * 1;
-            this.vy = (Math.random() - 0.5) * 1;
+            this.vx = (Math.random() - 0.5) * 1.5;
+            this.vy = (Math.random() - 0.5) * 1.5;
             this.size = Math.random() * 2 + 1;
             this.alpha = Math.random() * 0.5 + 0.5;
         }
@@ -1153,15 +1155,15 @@ function initAboutNeuralAnimation() {
             }
             else if (state === 'explode') {
                 // Fly outwards drastically
-                this.x += this.vx * 15;
-                this.y += this.vy * 15;
-                this.alpha -= 0.01;
+                this.x += this.vx * 18;
+                this.y += this.vy * 18;
+                this.alpha -= 0.015;
             }
             else if (state === 'refill') {
                 // Magnetic pull back to center
-                this.x -= this.x * 0.1;
-                this.y -= this.y * 0.1;
-                this.alpha = Math.min(1, this.alpha + 0.05);
+                this.x -= this.x * 0.12;
+                this.y -= this.y * 0.12;
+                this.alpha = Math.min(1, this.alpha + 0.08);
                 if (Math.abs(this.x) < 5 && Math.abs(this.y) < 5) {
                     this.reset();
                 }
@@ -1200,10 +1202,10 @@ function initAboutNeuralAnimation() {
 
         timer++;
 
-        // Cycle states: Fill (100 frames) -> Explode (60 frames) -> Refill (60 frames)
-        if (timer < 100) state = 'fill';
-        else if (timer < 160) state = 'explode';
-        else if (timer < 220) state = 'refill';
+        // Rapid Cycle states: Fill (30 frames) -> Explode (50 frames) -> Refill (40 frames)
+        if (timer < 30) state = 'fill';
+        else if (timer < 80) state = 'explode';
+        else if (timer < 120) state = 'refill';
         else {
             timer = 0;
             state = 'fill';
