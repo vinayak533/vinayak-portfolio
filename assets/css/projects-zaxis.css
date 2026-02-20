@@ -276,10 +276,15 @@
 @media (max-width: 768px) {
     .projects-grid {
         grid-template-columns: 1fr;
+        display: grid !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 
     .project-card {
         max-width: 350px;
         margin: 0 auto;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 }

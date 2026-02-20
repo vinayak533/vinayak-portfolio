@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. SCROLL REVEAL — Enhanced with stagger delay
     // ================================================================
     // Basic elements (no stagger)
-    const revealElements = document.querySelectorAll('.section-title, .skill-card-minimal, .timeline-item, .cert-card, .compact-card, .edu-node-map-wrapper, .about-text-glow-box, .about-highlights');
+    const revealElements = document.querySelectorAll('.section-title, .project-card, .skill-card-minimal, .timeline-item, .cert-card, .compact-card, .edu-node-map-wrapper, .about-text-glow-box, .about-highlights');
     revealElements.forEach(el => el.classList.add('reveal'));
 
     const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -1200,10 +1200,10 @@ function initAboutNeuralAnimation() {
 
         timer++;
 
-        // Cycle states: Fill (200 frames) -> Explode (100 frames) -> Refill (100 frames)
-        if (timer < 200) state = 'fill';
-        else if (timer < 300) state = 'explode';
-        else if (timer < 400) state = 'refill';
+        // Cycle states: Fill (100 frames) -> Explode (60 frames) -> Refill (60 frames)
+        if (timer < 100) state = 'fill';
+        else if (timer < 160) state = 'explode';
+        else if (timer < 220) state = 'refill';
         else {
             timer = 0;
             state = 'fill';
