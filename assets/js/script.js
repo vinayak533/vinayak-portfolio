@@ -127,21 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.05 });
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // Force visibility on mobile to avoid any reveal glitches
-    function handleMobileForce() {
-        if (window.innerWidth <= 1100) {
-            document.querySelectorAll('.project-card, .projects-grid, .projects-section, .section-title').forEach(el => {
-                el.classList.add('active');
-                el.style.setProperty('opacity', '1', 'important');
-                el.style.setProperty('visibility', 'visible', 'important');
-                el.style.setProperty('display', 'block', 'important');
-            });
-            const grid = document.querySelector('.projects-grid');
-            if (grid) grid.style.setProperty('display', 'grid', 'important');
-        }
-    }
-    handleMobileForce();
-    window.addEventListener('resize', handleMobileForce);
+
 
 
     // Mobile Navigation Toggle
@@ -163,20 +149,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 icon.classList.add('fa-bars');
             }
         });
-    }
 
-    // Close mobile menu when a link is clicked
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            if (navLinks.classList.contains('active')) {
+        // Close menu after clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
                 document.body.classList.remove('body-no-scroll');
                 const icon = mobileToggle.querySelector('i');
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
-            }
+            });
         });
-    });
+    }
+
+
 
 
     // ============================================================
@@ -1128,9 +1114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize about animation immediately
     initAboutNeuralAnimation();
 
-    // Force visibility on mobile to avoid any reveal glitches
-    forceMobileElements();
-    window.addEventListener('resize', forceMobileElements);
+
 
     // ================================================================
     // ABOUT SECTION: NEURAL EXPLOSION ANIMATION
@@ -1244,20 +1228,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loop();
     }
 
-    function forceMobileElements() {
-        if (window.innerWidth < 768) {
-            document.querySelectorAll('.project-card, .projects-grid, .projects-section').forEach(el => {
-                el.classList.add('active');
-                el.style.setProperty('opacity', '1', 'important');
-                el.style.setProperty('visibility', 'visible', 'important');
-                el.style.setProperty('display', 'block', 'important');
-                el.style.transform = 'none';
-            });
-            // Grid needs special display
-            const grid = document.querySelector('.projects-grid');
-            if (grid) grid.style.setProperty('display', 'grid', 'important');
-        }
-    }
+
 
     function setTheme(theme) {
         // Remove existing theme attributes first

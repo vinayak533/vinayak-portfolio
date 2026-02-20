@@ -280,49 +280,74 @@
 
 @media (max-width: 768px) {
     .projects-section {
-        z-index: 100 !important;
+        padding: 60px 0;
+        z-index: 10 !important;
         position: relative !important;
         overflow: visible !important;
         display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        min-height: 500px !important;
     }
 
     .projects-grid {
+        display: flex !important;
+        flex-direction: column !important;
         grid-template-columns: 1fr !important;
-        display: grid !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        z-index: 101 !important;
         gap: 30px !important;
+        margin-top: 30px !important;
         perspective: none !important;
         transform: none !important;
+        overflow: visible !important;
     }
 
     .project-card {
-        max-width: 350px !important;
+        width: 100% !important;
+        max-width: 400px !important;
         height: auto !important;
-        min-height: 400px !important;
+        min-height: 450px !important;
         margin: 0 auto !important;
+        position: relative !important;
+        transform: none !important;
+        perspective: none !important;
         opacity: 1 !important;
         visibility: visible !important;
         display: block !important;
-        z-index: 102 !important;
-        transform: none !important;
-        perspective: none !important;
     }
 
-    .card-inner,
-    .tilt-wrapper {
+    .tilt-wrapper,
+    .card-inner {
         transform: none !important;
         perspective: none !important;
         transform-style: flat !important;
+        transition: none !important;
+        height: 100% !important;
     }
 
-    .card-front {
+    .card-front,
+    .card-back {
         position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 300px !important;
+        backface-visibility: visible !important;
+        transform: none !important;
         opacity: 1 !important;
         visibility: visible !important;
+        display: block !important;
+    }
+
+    /* Stack them instead of flipping if it's too buggy */
+    /* Or just show front fixed and hide back flip logic */
+    .project-card:hover .card-inner,
+    .project-card.flipped .card-inner {
+        transform: none !important;
+    }
+
+    .card-back {
+        display: none !important;
+        /* Hide back on mobile if transforms are causing issues */
+    }
+
+    .project-visual {
+        height: 250px !important;
+        min-height: 250px !important;
     }
 }
