@@ -274,11 +274,18 @@
 }
 
 @media (max-width: 768px) {
+    .projects-section {
+        z-index: 10 !important;
+        position: relative !important;
+        overflow: visible !important;
+    }
+
     .projects-grid {
         grid-template-columns: 1fr;
         display: grid !important;
         opacity: 1 !important;
         visibility: visible !important;
+        z-index: 11 !important;
     }
 
     .project-card {
@@ -286,5 +293,7 @@
         margin: 0 auto;
         opacity: 1 !important;
         visibility: visible !important;
+        display: block !important;
+        z-index: 12 !important;
     }
 }

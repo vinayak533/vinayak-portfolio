@@ -127,6 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.05 });
     revealElements.forEach(el => revealObserver.observe(el));
 
+    // Force visibility on mobile to avoid any reveal glitches
+    if (window.innerWidth < 768) {
+        document.querySelectorAll('.project-card').forEach(card => card.classList.add('active'));
+    }
+
 
     // Mobile Navigation Toggle
     const mobileToggle = document.querySelector('.mobile-toggle');
@@ -1117,7 +1122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ================================================================
 function initAboutNeuralAnimation() {
     const canvas = document.getElementById('about-neural-canvas');
-    const container = document.getElementById('about-visual-canvas-container'); // Corrected ID
+    const container = document.getElementById('aboutNeuralContainer'); // Corrected ID
     if (!canvas || !container) return;
 
     const ctx = canvas.getContext('2d');
@@ -1202,10 +1207,10 @@ function initAboutNeuralAnimation() {
 
         timer++;
 
-        // Rapid Cycle states: Fill (30 frames) -> Explode (50 frames) -> Refill (40 frames)
-        if (timer < 30) state = 'fill';
-        else if (timer < 80) state = 'explode';
-        else if (timer < 120) state = 'refill';
+        // Extreme Cycle states: Fill (10 frames) -> Explode (40 frames) -> Refill (30 frames)
+        if (timer < 10) state = 'fill';
+        else if (timer < 50) state = 'explode';
+        else if (timer < 80) state = 'refill';
         else {
             timer = 0;
             state = 'fill';
@@ -1223,6 +1228,20 @@ function initAboutNeuralAnimation() {
     init();
     loop();
 }
+
+// Function to immediately force visibility for critical elements on mobile
+function forceMobileElements() {
+    if (window.innerWidth < 768) {
+        document.querySelectorAll('.project-card, .projects-grid, .section-title').forEach(el => {
+            el.classList.add('active');
+            el.style.opacity = '1';
+            el.style.visibility = 'visible';
+            el.style.transform = 'none';
+        });
+    }
+}
+forceMobileElements();
+window.addEventListener('resize', forceMobileElements);
 
 function setTheme(theme) {
     // Remove existing theme attributes first
